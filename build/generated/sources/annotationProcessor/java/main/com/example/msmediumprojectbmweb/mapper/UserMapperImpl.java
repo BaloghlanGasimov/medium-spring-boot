@@ -2,14 +2,14 @@ package com.example.msmediumprojectbmweb.mapper;
 
 import com.example.msmediumprojectbmweb.dao.entity.ProfileEntity;
 import com.example.msmediumprojectbmweb.dao.entity.UserEntity;
-import com.example.msmediumprojectbmweb.model.ProfileResponseDto;
+import com.example.msmediumprojectbmweb.model.ProfileRequestDto;
 import com.example.msmediumprojectbmweb.model.UserDto;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-17T17:21:09+0400",
+    date = "2024-06-21T14:20:53+0400",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.3.jar, environment: Java 20.0.2.1 (Amazon.com Inc.)"
 )
 @Component
@@ -26,7 +26,7 @@ public class UserMapperImpl implements UserMapper {
         userEntity.setId( userDto.getId() );
         userEntity.setMail( userDto.getMail() );
         userEntity.setPassword( userDto.getPassword() );
-        userEntity.setProfile( profileResponseDtoToProfileEntity( userDto.getProfile() ) );
+        userEntity.setProfile( profileRequestDtoToProfileEntity( userDto.getProfile() ) );
 
         return userEntity;
     }
@@ -42,38 +42,40 @@ public class UserMapperImpl implements UserMapper {
         userDto.setId( userEntity.getId() );
         userDto.setMail( userEntity.getMail() );
         userDto.setPassword( userEntity.getPassword() );
-        userDto.setProfile( profileEntityToProfileResponseDto( userEntity.getProfile() ) );
+        userDto.setProfile( profileEntityToProfileRequestDto( userEntity.getProfile() ) );
 
         return userDto;
     }
 
-    protected ProfileEntity profileResponseDtoToProfileEntity(ProfileResponseDto profileResponseDto) {
-        if ( profileResponseDto == null ) {
+    protected ProfileEntity profileRequestDtoToProfileEntity(ProfileRequestDto profileRequestDto) {
+        if ( profileRequestDto == null ) {
             return null;
         }
 
         ProfileEntity profileEntity = new ProfileEntity();
 
-        profileEntity.setId( profileResponseDto.getId() );
-        profileEntity.setName( profileResponseDto.getName() );
-        profileEntity.setSurname( profileResponseDto.getSurname() );
-        profileEntity.setProfession( profileResponseDto.getProfession() );
+        profileEntity.setId( profileRequestDto.getId() );
+        profileEntity.setName( profileRequestDto.getName() );
+        profileEntity.setSurname( profileRequestDto.getSurname() );
+        profileEntity.setBirthDate( profileRequestDto.getBirthDate() );
+        profileEntity.setProfession( profileRequestDto.getProfession() );
 
         return profileEntity;
     }
 
-    protected ProfileResponseDto profileEntityToProfileResponseDto(ProfileEntity profileEntity) {
+    protected ProfileRequestDto profileEntityToProfileRequestDto(ProfileEntity profileEntity) {
         if ( profileEntity == null ) {
             return null;
         }
 
-        ProfileResponseDto profileResponseDto = new ProfileResponseDto();
+        ProfileRequestDto profileRequestDto = new ProfileRequestDto();
 
-        profileResponseDto.setId( profileEntity.getId() );
-        profileResponseDto.setName( profileEntity.getName() );
-        profileResponseDto.setSurname( profileEntity.getSurname() );
-        profileResponseDto.setProfession( profileEntity.getProfession() );
+        profileRequestDto.setId( profileEntity.getId() );
+        profileRequestDto.setName( profileEntity.getName() );
+        profileRequestDto.setSurname( profileEntity.getSurname() );
+        profileRequestDto.setBirthDate( profileEntity.getBirthDate() );
+        profileRequestDto.setProfession( profileEntity.getProfession() );
 
-        return profileResponseDto;
+        return profileRequestDto;
     }
 }

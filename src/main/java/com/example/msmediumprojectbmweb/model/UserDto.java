@@ -14,6 +14,6 @@ public class UserDto {
     private String id;
     private String mail;
     private String password;
-    private ProfileResponseDto profile;
+    private ProfileRequestDto profile;
 
 }

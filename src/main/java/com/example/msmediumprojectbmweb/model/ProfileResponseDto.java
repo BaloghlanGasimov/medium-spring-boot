@@ -13,7 +13,7 @@ public class ProfileResponseDto {
     private String id;
     private String name;
     private String surname;
-    private int age;
+    private Integer age;
     private Profession profession;
 
 }

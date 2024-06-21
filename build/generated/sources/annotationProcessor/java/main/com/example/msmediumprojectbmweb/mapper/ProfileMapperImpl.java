@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-17T17:21:09+0400",
+    date = "2024-06-21T14:20:53+0400",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.3.jar, environment: Java 20.0.2.1 (Amazon.com Inc.)"
 )
 @Component
@@ -72,6 +72,7 @@ public class ProfileMapperImpl implements ProfileMapper {
 
         ProfileResponseDto profileResponseDto = new ProfileResponseDto();
 
+        profileResponseDto.setAge( dateToAge( profileEntity ) );
         profileResponseDto.setId( profileEntity.getId() );
         profileResponseDto.setName( profileEntity.getName() );
         profileResponseDto.setSurname( profileEntity.getSurname() );
