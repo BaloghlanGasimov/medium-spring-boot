@@ -1,7 +1,12 @@
 package com.example.msmediumprojectbmweb.dao.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "blog")
 public class BlogEntity {

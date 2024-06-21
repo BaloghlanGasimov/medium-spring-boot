@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -15,5 +17,5 @@ public class UserDto {
     private String mail;
     private String password;
     private ProfileRequestDto profile;
-
+    private List<BlogDto> blogs;
 }

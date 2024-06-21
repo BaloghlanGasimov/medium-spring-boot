@@ -1,5 +1,6 @@
 package com.example.msmediumprojectbmweb.controller;
 
+import com.example.msmediumprojectbmweb.model.BlogDto;
 import com.example.msmediumprojectbmweb.model.UserDto;
 import com.example.msmediumprojectbmweb.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,15 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public UserDto deleteUserById(@PathVariable String userId){
         return userService.deleteById(userId);
+    }
+
+    @PutMapping("/{userId}/blogs/{blogId}")
+    public void editBlogOfUserById(@PathVariable String userId, @PathVariable String blogId, @RequestBody BlogDto blogDto){
+        userService.editBlogOfUserById(userId,blogId,blogDto);
+    }
+
+    @PatchMapping("/{userId}/blogs/{blogId}")
+    public void assignBlogToUser(@PathVariable String userId,@PathVariable String blogId){
+        userService.assignBlogToUser(userId,blogId);
     }
 }
