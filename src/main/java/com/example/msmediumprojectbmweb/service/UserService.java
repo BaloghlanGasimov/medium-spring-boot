@@ -86,6 +86,7 @@ public class UserService {
 
     public void editBlogOfUserById(String userId, String blogId, BlogDto blogDto) {
         log.info("ActionLog.editBlogOfUserById.start userId:{} blogId:{}",userId,blogId);
+
         UserEntity userEntity = findUserById(userId);
         BlogEntity blogEntity = findBlogById(blogId);
 
