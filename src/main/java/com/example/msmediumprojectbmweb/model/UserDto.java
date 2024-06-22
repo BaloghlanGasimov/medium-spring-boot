@@ -17,5 +17,6 @@ public class UserDto {
     private String mail;
     private String password;
     private ProfileRequestDto profile;
+    private List<CategoryDto> categories;
     private List<BlogDto> blogs;
 }

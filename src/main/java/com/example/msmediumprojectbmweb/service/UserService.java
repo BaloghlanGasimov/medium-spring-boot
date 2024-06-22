@@ -1,8 +1,10 @@
 package com.example.msmediumprojectbmweb.service;
 
 import com.example.msmediumprojectbmweb.dao.entity.BlogEntity;
+import com.example.msmediumprojectbmweb.dao.entity.CategoryEntity;
 import com.example.msmediumprojectbmweb.dao.entity.UserEntity;
 import com.example.msmediumprojectbmweb.dao.repository.BlogRepository;
+import com.example.msmediumprojectbmweb.dao.repository.CategoryRepository;
 import com.example.msmediumprojectbmweb.dao.repository.UserRepository;
 import com.example.msmediumprojectbmweb.exceptions.NotFound;
 import com.example.msmediumprojectbmweb.mapper.UserMapper;
@@ -22,6 +24,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BlogRepository blogRepository;
+    private final CategoryRepository categoryRepository;
     private final UserMapper userMapper;
 
     public List<UserDto> getAllUsers() {
@@ -117,6 +120,22 @@ public class UserService {
         log.info("ActionLog.assignBlogToUser.end userId:{} blogId:{}",userId,blogId);
     }
 
+    public void assignCategoryToUser(String userId,String categoryId){
+        log.info("ActionLog.assignCategoryToUser.start userId:{} categoryId:{}",userId,categoryId);
+
+        UserEntity userEntity = findUserById(userId);
+        CategoryEntity categoryEntity = findCategoryById(categoryId);
+
+        List<CategoryEntity> categoryEntities = userEntity.getCategories();
+        categoryEntities.add(categoryEntity);
+        userEntity.setCategories(categoryEntities);
+
+        userRepository.save(userEntity);
+
+        log.info("ActionLog.assignCategoryToUser.end userId:{} categoryId:{}",userId,categoryId);
+
+    }
+
     private UserEntity findUserById(String userId){
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(()->new NotFound("USER_NOT_FOUND","ERROR ActionLog.findUser id:{" + userId + "}"));
@@ -126,6 +145,11 @@ public class UserService {
         BlogEntity blogEntity = blogRepository.findById(blogId)
                 .orElseThrow(()->new NotFound("BLOG_NOT_FOUND","ERROR ActionLog.findBlogById blogId:{"+blogId+"}"));
         return blogEntity;
+    }
+    private CategoryEntity findCategoryById(String categoryId){
+        CategoryEntity categoryEntity = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new NotFound("CATEGORY_NOT_FOUND", "ERROR ActionLog.findCategoryById categoryId:{" + categoryId + "}"));
+        return categoryEntity;
     }
 
 

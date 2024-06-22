@@ -27,6 +27,14 @@ public class UserEntity {
     @JoinColumn(name="profile_id")
     private ProfileEntity profile;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_categories",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<CategoryEntity> categories;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<BlogEntity> blogs;

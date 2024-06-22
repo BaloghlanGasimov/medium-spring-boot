@@ -48,4 +48,9 @@ public class UserController {
     public void assignBlogToUser(@PathVariable String userId,@PathVariable String blogId){
         userService.assignBlogToUser(userId,blogId);
     }
+
+    @PatchMapping("/{userId}/categories/{categoryId}")
+    public void assignCategoryToUser(@PathVariable String userId,@PathVariable String categoryId){
+        userService.assignCategoryToUser(userId,categoryId);
+    }
 }

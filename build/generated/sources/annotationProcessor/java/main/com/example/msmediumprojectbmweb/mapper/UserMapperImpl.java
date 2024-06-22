@@ -1,9 +1,11 @@
 package com.example.msmediumprojectbmweb.mapper;
 
 import com.example.msmediumprojectbmweb.dao.entity.BlogEntity;
+import com.example.msmediumprojectbmweb.dao.entity.CategoryEntity;
 import com.example.msmediumprojectbmweb.dao.entity.ProfileEntity;
 import com.example.msmediumprojectbmweb.dao.entity.UserEntity;
 import com.example.msmediumprojectbmweb.model.BlogDto;
+import com.example.msmediumprojectbmweb.model.CategoryDto;
 import com.example.msmediumprojectbmweb.model.ProfileRequestDto;
 import com.example.msmediumprojectbmweb.model.UserDto;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-21T16:08:25+0400",
+    date = "2024-06-22T14:33:01+0400",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.3.jar, environment: Java 20.0.2.1 (Amazon.com Inc.)"
 )
 @Component
@@ -31,6 +33,7 @@ public class UserMapperImpl implements UserMapper {
         userEntity.setMail( userDto.getMail() );
         userEntity.setPassword( userDto.getPassword() );
         userEntity.setProfile( profileRequestDtoToProfileEntity( userDto.getProfile() ) );
+        userEntity.setCategories( categoryDtoListToCategoryEntityList( userDto.getCategories() ) );
         userEntity.setBlogs( blogDtoListToBlogEntityList( userDto.getBlogs() ) );
 
         return userEntity;
@@ -48,6 +51,7 @@ public class UserMapperImpl implements UserMapper {
         userDto.setMail( userEntity.getMail() );
         userDto.setPassword( userEntity.getPassword() );
         userDto.setProfile( profileEntityToProfileRequestDto( userEntity.getProfile() ) );
+        userDto.setCategories( categoryEntityListToCategoryDtoList( userEntity.getCategories() ) );
         userDto.setBlogs( blogEntityListToBlogDtoList( userEntity.getBlogs() ) );
 
         return userDto;
@@ -67,6 +71,33 @@ public class UserMapperImpl implements UserMapper {
         profileEntity.setProfession( profileRequestDto.getProfession() );
 
         return profileEntity;
+    }
+
+    protected CategoryEntity categoryDtoToCategoryEntity(CategoryDto categoryDto) {
+        if ( categoryDto == null ) {
+            return null;
+        }
+
+        CategoryEntity categoryEntity = new CategoryEntity();
+
+        categoryEntity.setId( categoryDto.getId() );
+        categoryEntity.setCategory( categoryDto.getCategory() );
+        categoryEntity.setDescription( categoryDto.getDescription() );
+
+        return categoryEntity;
+    }
+
+    protected List<CategoryEntity> categoryDtoListToCategoryEntityList(List<CategoryDto> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<CategoryEntity> list1 = new ArrayList<CategoryEntity>( list.size() );
+        for ( CategoryDto categoryDto : list ) {
+            list1.add( categoryDtoToCategoryEntity( categoryDto ) );
+        }
+
+        return list1;
     }
 
     protected BlogEntity blogDtoToBlogEntity(BlogDto blogDto) {
@@ -110,6 +141,33 @@ public class UserMapperImpl implements UserMapper {
         profileRequestDto.setProfession( profileEntity.getProfession() );
 
         return profileRequestDto;
+    }
+
+    protected CategoryDto categoryEntityToCategoryDto(CategoryEntity categoryEntity) {
+        if ( categoryEntity == null ) {
+            return null;
+        }
+
+        CategoryDto categoryDto = new CategoryDto();
+
+        categoryDto.setId( categoryEntity.getId() );
+        categoryDto.setCategory( categoryEntity.getCategory() );
+        categoryDto.setDescription( categoryEntity.getDescription() );
+
+        return categoryDto;
+    }
+
+    protected List<CategoryDto> categoryEntityListToCategoryDtoList(List<CategoryEntity> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<CategoryDto> list1 = new ArrayList<CategoryDto>( list.size() );
+        for ( CategoryEntity categoryEntity : list ) {
+            list1.add( categoryEntityToCategoryDto( categoryEntity ) );
+        }
+
+        return list1;
     }
 
     protected BlogDto blogEntityToBlogDto(BlogEntity blogEntity) {
